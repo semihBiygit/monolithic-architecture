@@ -6,21 +6,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+
 @Table(name = "sales")
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Sales {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    private Long id;
-    private Long clientId;
-    private Long productId;
-    private int quantity;
-    private Long createdDate;
-    private Long updatedDate;
-    private int state;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    Long id;
+    Long clientId;
+    Long productId;
+    int quantity;
+    Double price;
+    int state;
+    Long createdDate;
+    Long updatedDate;
 
 }

@@ -6,25 +6,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-@Data
+
+@Table(name = "client")
+@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "client")
-@Entity
+@Data
 public class Client {
     @Id
-    @SequenceGenerator(name = "client_seq", sequenceName = "client_seq", allocationSize = 5, initialValue = 100)
-    @GeneratedValue(generator = "client_seq", strategy = GenerationType.SEQUENCE)
-    private Long id;
-
-    private String name;
-    private String lastname;
-    private String address;
-    private String phone;
-    private String email;
-    private Long createdDate;
-    private Long updatedDate;
+    @SequenceGenerator(name = "sq_tblmusteri_id", sequenceName = "sq_tblmusteri_id", allocationSize = 5, initialValue = 100)
+    @GeneratedValue(generator = "sq_tblmusteri_id")
+    Long id;
+    String name;
+    String lastname;
+    String address;
+    String phone;
+    String email;
+    Long createdDate;
+    Long updatedDate;
     /**
      * 0: passive
      * 1: active
