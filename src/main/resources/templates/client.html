@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Client</title>
+</head>
+<body>
+<h1 th:text="${manset}"></h1>
+<select name="" id="">
+    <option value="-1">Choose</option>
+    <option th:each="name,iter: ${names}" th:value="${iter.index}" th:text="${name}"></option>
+</select>
+</body>
+</html>

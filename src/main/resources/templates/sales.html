@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satış İşlemi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container-fluid" style="height: 150px; background-color: #B1B2FF;">
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="mb-3">
+                <label class="form-label">Client Name</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Product Name</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Quantity</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Total Price</label>
+                <input type="text" class="form-control">
+            </div>
+
+        </div>
+        <div class="col-4 ">
+            <div class="d-grid gap-2 mt-3">
+                <button type="submit" class="btn btn-success btn-block">New Record</button>
+                <button type="submit" class="btn btn-danger">Save</button>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr class="table-primary">
+                <th>Id</th>
+                <th>Client Name</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total Price</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sales,inter :${salesList}">
+                <td><label th:text="${sales.id}"/></td>
+                <td><label th:text="${sales.clientName}"/></td>
+                <td><label th:text="${sales.productName}"/></td>
+                <td><label th:text="${sales.quantity}"/></td>
+                <td><label th:text="${sales.price}"/></td>
+                <td><label th:text="${sales.total}"/></td>
+                <td><label th:text="${sales.createdDate}"/></td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+</html>
