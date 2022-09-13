@@ -15,29 +15,32 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
+import static com.semih.monolithicarchitecture.constants.Urls.*;
+
 @RestController
-@RequestMapping("/sales")
+@RequestMapping(VERSION + API + SALES)
 @RequiredArgsConstructor
 public class SalesController {
 
     private final SalesService salesService;
 
-    @GetMapping("/saveAllDemo")
+    @GetMapping(SAVE_ALL)
     public ResponseEntity<String> saveAllDemo() {
         salesService.saveAll(new Datas().getSalesList());
         return ResponseEntity.ok("Sales Data Added.");
     }
-    @PostMapping("/findAll")
+
+    @PostMapping(FIND_ALL)
     public ResponseEntity<List<Sales>> findAll() {
         return ResponseEntity.ok(salesService.findAll());
     }
 
-    @PostMapping("/getall")
+    @PostMapping(GET_ALL)
     public ResponseEntity<List<GetAllSalesResponseDto>> findAllDto() {
         return ResponseEntity.ok(salesService.findAllDto());
     }
 
-    @PostMapping("/findById")
+    @PostMapping(FIND_BY_ID)
     public ResponseEntity<Sales> findById(FindByIdRequestDto dto) {
         Optional<Sales> sales = salesService.findById(dto);
         if (sales.isPresent()) {

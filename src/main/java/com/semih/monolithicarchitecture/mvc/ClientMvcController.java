@@ -1,4 +1,4 @@
-package com.semih.monolithicarchitecture.controller.mvc;
+package com.semih.monolithicarchitecture.mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,10 +8,13 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Arrays;
 import java.util.List;
 
+
+import static com.semih.monolithicarchitecture.constants.Urls.*;
+
 @Controller
-@RequestMapping("/WEB/client")
+@RequestMapping(VERSION+WEB+CLIENT)
 public class ClientMvcController {
-    @GetMapping("/index")
+    @GetMapping(INDEX)
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("client");

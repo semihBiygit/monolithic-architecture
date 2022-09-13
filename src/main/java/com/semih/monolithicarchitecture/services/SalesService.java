@@ -51,7 +51,7 @@ public class SalesService extends ServiceManager<Sales, Long> {
                         .price(sales.getPrice())
                         .total(sales.getPrice() * sales.getQuantity())
                         .createdDate(Instant.ofEpochMilli(sales.getCreatedDate()).atZone(ZoneId.systemDefault()).toLocalDate())
-                        .productName(product.get().getName())
+                        .productName(product.get().getName() + " : " + product.get().getLabel() + " , " + product.get().getModel())
                         .clientName(client.get().getName())
                         .build());
             } else {
@@ -61,6 +61,16 @@ public class SalesService extends ServiceManager<Sales, Long> {
 
         });
         return responseDtoList;
+    }
+
+    public void save(Long clientId, Long productId, Integer quantity, Double price) {
+        salesRepository.save(Sales.builder()
+                .clientId(clientId)
+                .productId(productId)
+                .price(price)
+                .quantity(quantity)
+                .createdDate(System.currentTimeMillis())
+                .build());
     }
 }
 
