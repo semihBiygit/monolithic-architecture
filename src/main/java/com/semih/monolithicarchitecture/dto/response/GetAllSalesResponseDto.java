@@ -13,6 +13,8 @@ import java.time.LocalDate;
 @Builder
 public class GetAllSalesResponseDto {
     private Long id;
+    private Long clientId;
+    private Long productId;
     private String clientName;
     private String productName;
     private int quantity;

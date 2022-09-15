@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import static com.semih.monolithicarchitecture.constants.Urls.*;
 
 @Controller
-@RequestMapping(VERSION+WEB+SALES)
+@RequestMapping(VERSION + WEB + SALES)
 @RequiredArgsConstructor
 public class SalesMvcController {
     private final SalesService salesService;
@@ -34,6 +34,18 @@ public class SalesMvcController {
     @PostMapping(SAVE)
     public ModelAndView satis(Long clientId, Long productId, Integer quantity, Double price) {
         salesService.save(clientId, productId, quantity, price);
+        return new ModelAndView("redirect:index");
+    }
+
+    @PostMapping(DELETE)
+    public ModelAndView delete(Long id) {
+        salesService.deleteById(id);
+        return new ModelAndView("redirect:index");
+    }
+
+    @PostMapping(UPDATE)
+    public ModelAndView update(Long id, Long clientId, Long productId, Integer quantity, Double price) {
+        salesService.update(id, clientId, productId, quantity, price);
         return new ModelAndView("redirect:index");
     }
 }

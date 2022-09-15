@@ -53,7 +53,10 @@ public class SalesService extends ServiceManager<Sales, Long> {
                         .createdDate(Instant.ofEpochMilli(sales.getCreatedDate()).atZone(ZoneId.systemDefault()).toLocalDate())
                         .productName(product.get().getName() + " : " + product.get().getLabel() + " , " + product.get().getModel())
                         .clientName(client.get().getName())
+                        .clientId(client.get().getId())
+                        .productId(product.get().getId())
                         .build());
+
             } else {
 
                 System.out.println("Client or Product not found [Sales Id]=  " + sales.getId());
@@ -71,6 +74,16 @@ public class SalesService extends ServiceManager<Sales, Long> {
                 .quantity(quantity)
                 .createdDate(System.currentTimeMillis())
                 .build());
+    }
+
+    public void update(Long id, Long clientId, Long productId, Integer quantity, Double price) {
+        Sales sales = salesRepository.findById(id).get();
+        sales.setClientId(clientId);
+        sales.setProductId(productId);
+        sales.setQuantity(quantity);
+        sales.setPrice(price);
+        sales.setUpdatedDate(System.currentTimeMillis());
+        salesRepository.save(sales);
     }
 }
 

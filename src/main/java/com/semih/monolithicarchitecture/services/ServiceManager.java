@@ -24,16 +24,18 @@ public class ServiceManager<T, ID> implements IServices<T, ID> {
 
     @Override
     public T update(T entity) {
-        return null;
+        return service.save(entity);
     }
 
     @Override
     public void delete(T entity) {
+        service.delete(entity);
 
     }
 
     @Override
     public void deleteById(ID id) {
+        service.deleteById(id);
 
     }
 

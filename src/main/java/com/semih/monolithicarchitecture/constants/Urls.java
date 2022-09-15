@@ -17,6 +17,7 @@ public class Urls {
     public static final String CLIENT = "/client";
     public static final String PRODUCT = "/product";
     public static final String SALES = "/sales";
+    public static final String INFORMATION = "/information";
 
     //4. step methods
     //http://localhost:9090/sb01/web/sales/save
@@ -24,8 +25,9 @@ public class Urls {
 
     public static final String INDEX = "/index";
     public static final String SAVE = "/save";
+    public static final String UPDATE = "/update";
     public static final String GET_ALL = "/getAll";
-
+    public static final String DELETE = "/delete";
     public static final String SAVE_ALL = "/saveAll";
 
     public static final String FIND_ALL = "/findAll";
@@ -44,4 +46,9 @@ public class Urls {
      */
     public static final String SAVE_PARAM = "/saveparam";
     public static final String SAVE_PARAM_DTO = "/saveparamdto";
+    /**
+     * API --> Information Controller
+     */
+    public static final String INFO = "/info";
+    public static final String DESCRIPTION = "/description";
 }

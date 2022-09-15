@@ -1,5 +1,7 @@
 package com.semih.monolithicarchitecture.controller;
 
+import com.semih.monolithicarchitecture.excepiton.ErrorType;
+import com.semih.monolithicarchitecture.excepiton.MonolithicManagerException;
 import com.semih.monolithicarchitecture.repository.entity.Client;
 import com.semih.monolithicarchitecture.services.ClientService;
 import com.semih.monolithicarchitecture.utils.Datas;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.semih.monolithicarchitecture.constants.Urls.*;
 
@@ -18,6 +21,15 @@ import static com.semih.monolithicarchitecture.constants.Urls.*;
 @RequiredArgsConstructor
 public class ClientController {
     private final ClientService clientService;
+
+    @GetMapping("/getClientByName")
+    public ResponseEntity<Client> getClientByName(String name) {
+        Optional<Client> result = clientService.findTopOptionalByName(name);
+        if (result.isPresent()) {
+            return ResponseEntity.ok(result.get());
+        }
+        throw new MonolithicManagerException(ErrorType.USER_NOT_FOUND);
+    }
 
     @GetMapping(SAVE_ALL)
     public ResponseEntity<Void> saveall() {

@@ -40,5 +40,4 @@ public class ClientService extends ServiceManager<Client, Long> {
         return clientRepository.findAllByCreatedDateBetween(startDate, endDate);
     }
 
-
 }

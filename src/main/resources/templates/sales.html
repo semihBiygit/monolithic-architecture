@@ -10,17 +10,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 <body>
-<div class="container-fluid" style="height: 150px; background-color: #B1B2FF;">
+<div class="container-fluid" style="height: 100px; background-color: #D3EBCD;">
 
 </div>
 <div class="container">
     <div class="row">
         <form action="save" method="post">
             <div class="col-12">
-                <input type="text" name="id" hidden>
                 <div class="mb-3">
                     <label class="form-label">Client Name</label>
-                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+                    <select class="form-select form-select-lg mb-3"
+                            aria-label=".form-select-lg example"
                             name="clientId">
                         <option value="-1" selected>Select Client</option>
                         <option th:each="client : ${clientList}" th:value="${client.id}"
@@ -29,7 +29,8 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Product Name</label>
-                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+                    <select class="form-select form-select-lg mb-3"
+                            aria-label=".form-select-lg example"
                             name="productId">
                         <option value="-1" selected>Select Product</option>
                         <option th:each="product : ${productList}" th:value="${product.id}"
@@ -83,10 +84,12 @@
                 <td><label th:text="${sales.total+'₺'}"/></td>
                 <td><label th:text="${sales.createdDate}"/></td>
                 <td>
-                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-edit">
+                    <a href="#"
+                       th:attr="onclick=|edit(${sales.id},${sales.clientId},${sales.productId},${sales.quantity},${sales.price},${sales.total})|"
+                       class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-edit">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </a>
-                    <a href="#" class="btn btn-danger" onclick="recordDelete()">
+                    <a href="#" class="btn btn-danger" th:attr="onclick=|deleteRecordFetch(${sales.id})|">
                         <i class="fa-solid fa-eraser"></i>
                     </a>
                 </td>
@@ -101,54 +104,64 @@
 <div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <label class="form-label">Client Name</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
-                                name="clientId">
-                            <option value="-1" selected>Select Client</option>
-                            <option th:each="client : ${clientList}" th:value="${client.id}"
-                                    th:text="${client.name+' '+client.lastname}"/>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Product Name</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
-                                name="productId">
-                            <option value="-1" selected>Select Product</option>
-                            <option th:each="product : ${productList}" th:value="${product.id}"
-                                    th:text="${product.name+' : '+product.label+' '+product.model}"/>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Quantity</label>
-                        <input type="text" class="form-control" name="quantity">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Price</label>
-                        <input type="text" class="form-control" name="price">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Total Price</label>
-                        <input type="text" class="form-control" name="total">
-                    </div>
-
+            <form action="update" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Sales</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+                <div class="modal-body">
+                    <div class="col-12">
+                        <input id="txteditid" type="text" name="id" hidden>
+                        <div class="mb-3">
+                            <label class="form-label">Client Name</label>
+                            <select id="txteditclient" class="form-select form-select-lg mb-3"
+                                    aria-label=".form-select-lg example"
+                                    name="clientId">
+                                <option value="-1" selected>Select Client</option>
+                                <option th:each="client : ${clientList}" th:value="${client.id}"
+                                        th:text="${client.name+' '+client.lastname}"/>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Product Name</label>
+                            <select id="txteditproduct" class="form-select form-select-lg mb-3"
+                                    aria-label=".form-select-lg example"
+                                    name="productId">
+                                <option value="-1" selected>Select Product</option>
+                                <option th:each="product : ${productList}" th:value="${product.id}"
+                                        th:text="${product.name+' : '+product.label+' '+product.model}"/>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Quantity</label>
+                            <input id="txteditquantity" type="text" class="form-control" name="quantity">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Price</label>
+                            <input id="txteditprice" type="text" class="form-control" name="price">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Total Price</label>
+                            <input id="txtedittotal" type="text" class="form-control" name="total">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+<!--<form action="delete" method="post" hidden>-->
+<!--    <input type="text" name="id" id="txtdeleteid">-->
+<!--    <button id="btndelete" type="submit" class="btn btn-danger">Delete</button>-->
+<!--</form>-->
 <script>
-    function recordDelete() {
+    function deleteRecord(id) {
+
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -159,13 +172,58 @@
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
+                //silme işlemini onayladığımız yer.
+                document.getElementById("txtdeleteid").value = id;
                 Swal.fire(
                     'Deleted!',
                     'Sales data has been deleted.',
                     'success'
-                )
+                ).then(() => {
+                    document.getElementById('btndelete').click();
+                })
             }
         })
+    }
+
+    function deleteRecordFetch(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // silme işlemini onaayldığınız yerdir.
+                fetch('delete?id=' + id, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }).then(() => {
+                    Swal.fire(
+                        'Deleted!',
+                        'Sales data has been deleted.',
+                        'success'
+                    ).then(() => {
+                        location.reload();
+                    })
+
+                })
+            }
+
+        })
+    }
+
+    function edit(id, clientId, productId, quantity, price, total) {
+        document.getElementById("txteditid").value = id;
+        document.getElementById("txteditclientid").value = clientId;
+        document.getElementById("txteditproductid").value = productId;
+        document.getElementById("txteditquantity").value = quantity;
+        document.getElementById("txteditprice").value = price;
+        document.getElementById("txtedittotal").value = total;
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

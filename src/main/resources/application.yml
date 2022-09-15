@@ -11,3 +11,11 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+myapplication:
+  name: Monolithic Architecture
+  description: "This is a description of the Monolithic Architecture"
+  info: "This is a info of the monolithic architecture application"
